@@ -18,9 +18,11 @@ public class UnidadeLotacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id_unidade_lotacao;
     private String nome_unidade;
+    private String descricao;
 
-    public UnidadeLotacao(Integer id_unidade_lotacao, String nome_unidade) {
+    public UnidadeLotacao(Integer id_unidade_lotacao, String nome_unidade, String descricao) {
         this.id_unidade_lotacao = id_unidade_lotacao;
         this.nome_unidade = nome_unidade;
+        this.descricao = descricao;
     }
 }

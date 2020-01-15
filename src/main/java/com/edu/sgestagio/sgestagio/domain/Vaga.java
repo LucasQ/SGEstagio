@@ -1,5 +1,6 @@
 package com.edu.sgestagio.sgestagio.domain;
 
+import com.edu.sgestagio.sgestagio.domain.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +21,12 @@ public class Vaga {
     @JoinColumn(name = "id_unidade_lotacao")
     private UnidadeLotacao id_unidade_lotacao;
 
-    public Vaga(Integer id_vaga, int id_status) {
+    public Vaga(Integer id_vaga, Status id_status) {
         this.id_vaga = id_vaga;
-        this.id_status = id_status;
+        this.id_status = (id_status == null) ? null : id_status.getCod();
+    }
+
+    public void setId_status(Status id_status) {
+        this.id_status = id_status.getCod();
     }
 }
