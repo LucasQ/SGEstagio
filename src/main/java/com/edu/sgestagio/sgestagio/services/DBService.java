@@ -8,7 +8,7 @@ import com.edu.sgestagio.sgestagio.domain.enums.Status;
 import com.edu.sgestagio.sgestagio.repositories.EstagiarioRepository;
 import com.edu.sgestagio.sgestagio.repositories.InstituicaoEnsinoRepository;
 import com.edu.sgestagio.sgestagio.repositories.UnidadeLotacaoRepository;
-import com.edu.sgestagio.sgestagio.repositories.VagasRepository;
+import com.edu.sgestagio.sgestagio.repositories.VagaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class DBService {
     @Autowired
     private UnidadeLotacaoRepository unidadeLotacaoRepository;
     @Autowired
-    private VagasRepository vagasRepository;
+    private VagaRepository vagasRepository;
 
 
     public void InstantiateDataBase() throws ParseException {
@@ -55,14 +55,59 @@ public class DBService {
         UnidadeLotacao ul10 = new UnidadeLotacao(null, "CMN", "Conselho Monetario Nacional");
         UnidadeLotacao ul11 = new UnidadeLotacao(null, "CONFAZ", "Conselho Nacional de Pol. Fazendaria");
 
+        unidadeLotacaoRepository.saveAll(Arrays.asList(ul1, ul2, ul3, ul4, ul5, ul6, ul7, ul8, ul9, ul10, ul11));
+
         Vaga vg1 = new Vaga(null, Status.DISPONIVEL);
         Vaga vg2 = new Vaga(null, Status.DISPONIVEL);
         Vaga vg3 = new Vaga(null, Status.DISPONIVEL);
         Vaga vg4 = new Vaga(null, Status.DISPONIVEL);
         Vaga vg5 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg6 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg7 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg8 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg9 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg10 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg11 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg12 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg13 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg14 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg15 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg16 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg17 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg18 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg19 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg20 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg21 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg22 = new Vaga(null, Status.DISPONIVEL);
+        Vaga vg23 = new Vaga(null, Status.DISPONIVEL);
 
 
+        vg1.setId_unidade_lotacao(ul1);
+        vg2.setId_unidade_lotacao(ul2);
+        vg3.setId_unidade_lotacao(ul3);
+        vg4.setId_unidade_lotacao(ul4);
+        vg5.setId_unidade_lotacao(ul5);
+        vg6.setId_unidade_lotacao(ul6);
+        vg7.setId_unidade_lotacao(ul7);
+        vg8.setId_unidade_lotacao(ul8);
+        vg9.setId_unidade_lotacao(ul9);
+        vg10.setId_unidade_lotacao(ul10);
+        vg11.setId_unidade_lotacao(ul11);
+        vg12.setId_unidade_lotacao(ul1);
+        vg13.setId_unidade_lotacao(ul2);
+        vg14.setId_unidade_lotacao(ul3);
+        vg15.setId_unidade_lotacao(ul4);
+        vg16.setId_unidade_lotacao(ul5);
+        vg17.setId_unidade_lotacao(ul6);
+        vg18.setId_unidade_lotacao(ul7);
+        vg19.setId_unidade_lotacao(ul8);
+        vg20.setId_unidade_lotacao(ul9);
+        vg21.setId_unidade_lotacao(ul10);
+        vg22.setId_unidade_lotacao(ul1);
+        vg23.setId_unidade_lotacao(ul2);
 
+        vagasRepository.saveAll(Arrays.asList(vg1, vg2, vg3, vg4, vg5, vg6, vg7, vg8, vg9, vg10, vg11, vg12, vg13,
+                vg14, vg15, vg16, vg17, vg18, vg19, vg20, vg21, vg22, vg23));
     }
 }
 

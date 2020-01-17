@@ -1,5 +1,6 @@
 package com.edu.sgestagio.sgestagio.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +20,5 @@ public class EstagiarioDTO {
     private String nacionalidade;
     private int nivel;
     private int id_instituicao_ensino;
+
 }

@@ -1,9 +1,13 @@
 package com.edu.sgestagio.sgestagio.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +16,8 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id_instituicao_ensino")
 public class Estagiario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +46,9 @@ public class Estagiario {
         this.data_nascimento = data_nascimento;
         this.nacionalidade = nacionalidade;
         this.nivel = nivel;
+    }
+
+    public Estagiario(Integer id_estagiario) {
+        this.id_estagiario = id_estagiario;
     }
 }

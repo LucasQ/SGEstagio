@@ -15,5 +15,6 @@ public class DBConfig {
     @Bean
     public void instantiateDataBase() throws ParseException {
         dbService.InstantiateDataBase();
+        dbService.InstantiateVagasDB();
     }
 }
