@@ -1,7 +1,9 @@
 package com.edu.sgestagio.sgestagio.resources;
 
 import com.edu.sgestagio.sgestagio.domain.VagaEstagiario;
+import com.edu.sgestagio.sgestagio.dto.VagaEstagiarioDTO;
 import com.edu.sgestagio.sgestagio.services.VagaEstagiarioService;
+import com.edu.sgestagio.sgestagio.services.exceptions.VagaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +27,9 @@ public class VagaEstagiarioResource {
     private VagaEstagiarioService service;
 
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody VagaEstagiario vagaEstagiario) {
-        VagaEstagiario ve = service.save(vagaEstagiario);
+    public ResponseEntity<Void> insert(@RequestBody VagaEstagiarioDTO vagaEstagiarioDTO) throws VagaException {
+        VagaEstagiario ve = service.fromDto(vagaEstagiarioDTO);
+        ve = service.save(ve);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
                 buildAndExpand(ve.getId_vaga_estagiario()).toUri();
 

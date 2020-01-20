@@ -24,15 +24,14 @@ public class Vaga {
 
     @ManyToOne
     @JoinColumn(name = "id_unidade_lotacao")
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id_unidade_lotacao")
+//    @JsonProperty("id_unidade_lotacao")
+//    @JsonIdentityReference(alwaysAsId = true)
     private UnidadeLotacao id_unidade_lotacao;
 
     public Vaga(Integer id_vaga, Status id_status) {
         this.id_vaga = id_vaga;
         this.id_status = (id_status == null) ? null : id_status.getCod();
-    }
-
-    public Vaga(Integer id_vaga) {
-        this.id_vaga = id_vaga;
     }
 
     public Vaga(Integer id_vaga, Status id_status, UnidadeLotacao unidadeLotacao) {
