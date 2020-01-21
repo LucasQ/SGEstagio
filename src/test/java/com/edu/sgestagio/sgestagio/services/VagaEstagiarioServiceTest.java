@@ -52,12 +52,12 @@ public class VagaEstagiarioServiceTest {
     }
 
     @Test
-    public void fromDtoTest() {
+    public void fromDtoTest() throws ParseException {
         int id = 99;
         Vaga vg = new Vaga(id, Status.DISPONIVEL);
         Estagiario est = new Estagiario(id);
         VagaEstagiarioDTO vDto = new VagaEstagiarioDTO(vg.getId_vaga(), est.getId_estagiario(),
-                null, null, null);
+                "21/12/2019", "21/12/2019");
 
         when(vagaRepository.findById(vg.getId_vaga())).thenReturn(Optional.of(vg));
         when(estagiarioRepository.findById(est.getId_estagiario())).thenReturn(Optional.of(est));
@@ -73,7 +73,7 @@ public class VagaEstagiarioServiceTest {
 
     //- Encerrar uma VagaEstagiario colocando um DT_FIM desejado e mudando o status da Vaga para DISPONIVEL
     @Test
-    public void EncerrarVagaEstagiarioTest() throws ParseException {
+    public void EncerrarVagaEstagiarioTest() throws ParseException, VagaException {
         int id = 99;
         Vaga vg = new Vaga(id, Status.OCUPADO);
         VagaEstagiario ve = new VagaEstagiario(id, vg, new Estagiario(),
@@ -81,13 +81,14 @@ public class VagaEstagiarioServiceTest {
 
         when(vagaEstagiarioRepository.findById(id)).thenReturn(Optional.of(ve));
         when(vagaEstagiarioRepository.save(ve)).thenReturn(new VagaEstagiario(id, new Vaga(id, Status.DISPONIVEL),
-                new Estagiario(), sdf.parse("21/12/2012"), new Date(), new Date()));
+                new Estagiario(), sdf.parse("21/12/2012"), sdf.parse("03/03/2020"), new Date()));
 
-        VagaEstagiario veUpt = service.encerrarVaga(ve.getId_vaga_estagiario());
+        VagaEstagiario veUpt = service.encerrarVaga(ve.getId_vaga_estagiario(), "03/03/2020");
 
         Assertions.assertEquals(veUpt.getId_vaga().getId_status(), Status.DISPONIVEL.getCod());
         Assertions.assertNotNull(veUpt.getDt_fim());
         Assertions.assertTrue(equalsDate(veUpt.getDt_hr_atualiz(), new Date()));
+        Assertions.assertTrue(equalsDate(veUpt.getDt_fim(), sdf.parse("03/03/2020")));
 
         verify(vagaEstagiarioRepository, times(1)).findById(id);
         verify(vagaEstagiarioRepository, times(1)).save(ve);
@@ -95,5 +96,33 @@ public class VagaEstagiarioServiceTest {
 
     private static boolean equalsDate(Date d1, Date d2) throws ParseException {
         return sdf.parse(sdf.format(d1)).compareTo(sdf.parse(sdf.format(d2))) == 0;
+    }
+
+    @Test
+    public void encerrarVagaEstagioNaoOcupadaTest() throws ParseException {
+        int id = 99;
+        Vaga vg = new Vaga(id, Status.DISPONIVEL);
+        VagaEstagiario ve = new VagaEstagiario(id, vg, new Estagiario(),
+                sdf.parse("21/12/2012"), null, sdf.parse("06/06/2015"));
+
+        when(vagaEstagiarioRepository.findById(id)).thenReturn(Optional.of(ve));
+
+        assertThatThrownBy(() -> service.encerrarVaga(ve.getId_vaga_estagiario(), "03/03/2020"))
+                .isInstanceOf(VagaException.class)
+                .hasMessage("A vaga nao se encontra ocupada");
+    }
+
+    @Test
+    public void encerrarVagaEstagioJaEncerrada() throws ParseException {
+        int id = 99;
+        Vaga vg = new Vaga(id, Status.OCUPADO);
+        VagaEstagiario ve = new VagaEstagiario(id, vg, new Estagiario(),
+                sdf.parse("21/12/2012"), new Date(), sdf.parse("06/06/2015"));
+
+        when(vagaEstagiarioRepository.findById(id)).thenReturn(Optional.of(ve));
+
+        assertThatThrownBy(() -> service.encerrarVaga(ve.getId_vaga_estagiario(), "03/03/2020"))
+                .isInstanceOf(VagaException.class)
+                .hasMessage("A vaga ja foi encerrada");
     }
 }

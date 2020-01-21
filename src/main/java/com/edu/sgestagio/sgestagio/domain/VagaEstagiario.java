@@ -1,9 +1,6 @@
 package com.edu.sgestagio.sgestagio.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,6 +10,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class VagaEstagiario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

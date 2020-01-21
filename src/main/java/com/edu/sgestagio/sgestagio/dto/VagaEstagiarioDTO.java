@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @AllArgsConstructor
 @Setter
 @Getter
@@ -14,7 +12,6 @@ import java.util.Date;
 public class VagaEstagiarioDTO {
     private Integer id_vaga;
     private Integer id_estagiario;
-    private Date dt_inicio;
-    private Date dt_fim;
-    private Date dt_hr_atualiz;
+    private String dt_inicio;
+    private String dt_hr_atualiz;
 }
